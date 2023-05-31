@@ -1,13 +1,14 @@
 package org.portfolio.models.component;
 
-import org.portfolio.models.base.BaseComponent;
-import org.portfolio.models.base.BasePage;
+import org.openqa.selenium.WebDriver;
+import org.portfolio.models.base.BaseHeaderComponent;
 
-public class MainHeaderComponent<Page extends BasePage<?>> extends BaseComponent<Page> {
+//this is a header realisation (where we will have action methods)
+public class MainHeaderComponent extends BaseHeaderComponent {
 
-    public MainHeaderComponent(Page page) {
-        super(page);
+    public MainHeaderComponent(WebDriver driver) {
+        super(driver);
     }
 
-    //write action methods like click, etc.
+    //public MainPage clickLogo() {}
 }

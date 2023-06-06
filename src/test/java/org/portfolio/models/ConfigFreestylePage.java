@@ -17,8 +17,8 @@ public class ConfigFreestylePage extends BaseMainHeaderPage<ConfigFreestylePage>
         return super.getHeader();
     }
 
-    public ItemFreestyleProjectPage clickSaveWithDefaultSettings() {
+    public FreestyleProjectPage clickSaveWithDefaultSettings() {
         getWait5().until(ExpectedConditions.elementToBeClickable(By.name("Submit"))).click();
-        return new ItemFreestyleProjectPage(getDriver());
+        return new FreestyleProjectPage(getDriver());
     }
 }

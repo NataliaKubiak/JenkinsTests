@@ -2,6 +2,7 @@ package org.portfolio.models;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.portfolio.models.base.BaseMainHeaderPage;
 import org.portfolio.models.component.MainHeaderComponent;
 
@@ -27,5 +28,15 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
     public NewItemPage clickNewItemButton() {
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
         return new NewItemPage(getDriver());
+    }
+
+    public boolean itemIsDisplayedOnDashboard(String itemName) {
+        return getWait5().until(ExpectedConditions
+                .visibilityOfElementLocated(By.id("job_" + itemName))).isDisplayed();
+    }
+
+    public FreestyleProjectPage clickFreestyleProjectOnDashboard(String itemName) {
+        getDriver().findElement(By.xpath("//a[@href='job/"+ itemName + "/']")).click();
+        return new FreestyleProjectPage(getDriver());
     }
 }

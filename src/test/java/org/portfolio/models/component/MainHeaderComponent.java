@@ -1,6 +1,7 @@
 package org.portfolio.models.component;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.portfolio.models.base.BaseComponent;
 import org.portfolio.models.base.BasePage;
 
@@ -12,8 +13,8 @@ public class MainHeaderComponent<Page extends BasePage<?>> extends BaseComponent
     }
 
     //action methods
-    public Page clickNotificationIcon() {
-        getDriver().findElement(By.id("visible-am-button")).click();
+    public Page clickLogo() {
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.id("jenkins-head-icon"))).click();
         return getPage();
     }
 }

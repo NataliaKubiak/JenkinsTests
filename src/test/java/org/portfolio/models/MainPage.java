@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.portfolio.models.base.BaseMainHeaderPage;
-import org.portfolio.models.component.MainHeaderComponent;
 
 //extends BasePage - I have there <Header> that's why I need to mention Header here too
 //set a <MainHeaderComponent> to get this particular header through getHeader()
@@ -19,15 +18,9 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         super(driver);
     }
 
-    @Override
-    public MainHeaderComponent<MainPage> getHeader() {
-        return super.getHeader();
-    }
-
-    //action methods
-    public NewItemPage clickNewItemButton() {
+    public CreateNewItemPage clickNewItemButton() {
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
-        return new NewItemPage(getDriver());
+        return new CreateNewItemPage(getDriver());
     }
 
     public boolean itemIsDisplayedOnDashboard(String itemName) {

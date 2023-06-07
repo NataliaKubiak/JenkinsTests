@@ -6,10 +6,9 @@ import org.portfolio.models.MainPage;
 import org.portfolio.models.base.BaseComponent;
 import org.portfolio.models.base.BasePage;
 
-//this is a header realisation (where we will have action methods)
-public class MainHeaderComponent<Page extends BasePage<?>> extends BaseComponent<Page> {
+public class ErrorHeaderComponent<Page extends BasePage<?>> extends BaseComponent<Page> {
 
-    public MainHeaderComponent(Page page) {
+    public ErrorHeaderComponent(Page page) {
         super(page);
     }
 

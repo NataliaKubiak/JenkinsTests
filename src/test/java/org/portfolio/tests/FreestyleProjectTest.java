@@ -1,0 +1,164 @@
+package org.portfolio.tests;
+
+import org.portfolio.models.CreateNewItemErrorPage;
+import org.portfolio.models.CreateProjectLongNameErrorPage;
+import org.portfolio.models.MainPage;
+import org.portfolio.tests.base.BaseTest;
+import org.testng.Assert;
+import org.testng.annotations.Ignore;
+import org.testng.annotations.Test;
+
+public class FreestyleProjectTest extends BaseTest {
+
+    private final String PROJECT_NAME = "Project12345";
+
+    @Test
+    public void testCreateFreestyleProject() {
+        boolean freestyleProjectIsPresent = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName(PROJECT_NAME)
+                .chooseFreestyleProjectAndOK()
+                .clickSaveWithDefaultSettings()
+                .getHeader()
+                .clickLogo()
+                .itemIsDisplayedOnDashboard(PROJECT_NAME);
+
+        Assert.assertTrue(freestyleProjectIsPresent, "Freestyle Project with a name " + PROJECT_NAME
+                + " is not displayed on Dashboard");
+
+        //post-condition
+        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
+    }
+
+    //won't be a problem with clearData
+//    @Test
+//    public void testCreateFreestyleProjectWithAllowedChars() {
+//        final String allowedChar = "_-+=”{},";
+//
+//        boolean freestyleProjectIsPresent = new MainPage(getDriver())
+//                .clickNewItemButton()
+//                .enterTheNameOfTheProject(allowedChar)
+//                .chooseFreestyleProjectAndOK()
+//                .clickSaveWithDefaultSettings()
+//                .getHeader()
+//                .clickLogo()
+//                .itemIsDisplayedOnDashboard(allowedChar);
+//
+//        Assert.assertTrue(freestyleProjectIsPresent, "Freestyle Project with a name " + allowedChar
+//                + " is not displayed on Dashboard");
+//
+//        //post-condition
+//        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(allowedChar).deleteFreestyleProject();
+//    }
+
+    @Test
+    public void testCreateFreestyleProjectSpacesInsteadOfName() {
+        CreateNewItemErrorPage createNewItemErrorPage = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName("   ")
+                .chooseFreestyleProjectAndOkToErrorPage();
+
+        Assert.assertEquals(createNewItemErrorPage.getTitle(), "Error",
+                "The title of an Error is not as expected");
+        Assert.assertEquals(createNewItemErrorPage.getErrorText(), "No name is specified",
+                "The error text is not as expected");
+    }
+
+    //sometimes Warning message appears, sometimes no. Weird
+    @Ignore
+    @Test
+    public void testVerifyWarningMessageProjectNameEndingWithDot() {
+        String warningMessageText = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName("Freestyle.")
+                .getWarningMessage();
+
+        Assert.assertEquals(warningMessageText, "» A name cannot end with ‘.’",
+                "Warning message is not as expected");
+    }
+
+    @Test
+    public void testCreateFreestyleProjectNameEndingWithDot() {
+        CreateNewItemErrorPage createNewItemErrorPage = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName("Freestyle.")
+                .chooseFreestyleProjectAndOkToErrorPage();
+
+        Assert.assertEquals(createNewItemErrorPage.getTitle(), "Error",
+                "The title of an Error is not as expected");
+        Assert.assertEquals(createNewItemErrorPage.getErrorText(), "A name cannot end with ‘.’",
+                "The error text is not as expected");
+    }
+
+    //sometimes Warning message appears, sometimes no
+    @Ignore
+    @Test
+    public void testVerifyWarningMessageDuplicateProjectName() {
+        new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName(PROJECT_NAME)
+                .chooseFreestyleProjectAndOK()
+                .clickSaveWithDefaultSettings()
+                .getHeader()
+                .clickLogo();
+
+        String warningMessageText = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName(PROJECT_NAME)
+                .getWarningMessage();
+
+        Assert.assertEquals(warningMessageText, "» A job already exists with the name ‘"
+                + PROJECT_NAME + "’", "Warning message is not as expected");
+
+        //post-condition
+        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
+    }
+
+    //add dependency from createFreestyleProject after adding clearData()
+    @Test
+    public void testCreateFreestyleProjectDuplicateProjectName() {
+        new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName(PROJECT_NAME)
+                .chooseFreestyleProjectAndOK()
+                .clickSaveWithDefaultSettings()
+                .getHeader()
+                .clickLogo();
+
+        CreateNewItemErrorPage createNewItemErrorPage = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName(PROJECT_NAME)
+                .chooseFreestyleProjectAndOkToErrorPage();
+
+        Assert.assertEquals(createNewItemErrorPage.getTitle(), "Error",
+                "The title of an Error is not as expected");
+        Assert.assertEquals(createNewItemErrorPage.getErrorText(), "A job already exists with the name ‘"
+                + PROJECT_NAME + "’", "The error text is not as expected");
+
+        //post-condition
+        new MainPage(getDriver())
+                .getHeader()
+                .clickLogo()
+                .clickFreestyleProjectOnDashboard(PROJECT_NAME)
+                .deleteFreestyleProject();
+    }
+
+    @Test
+    public void testCreateFreestyleProjectLongName() {
+        final String longName = "THIS STRING IS 257 CHARACTERS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxY";
+
+        String problemText = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName(longName)
+                .chooseFreestyleProjectAndOkToErrorLongNamePage()
+                .getProblemText();
+
+        Assert.assertEquals(problemText, "A problem occurred while processing the request.",
+                "The Text of the problem is not as expected");
+
+        //post-condition
+        new CreateProjectLongNameErrorPage(getDriver())
+                .getHeader()
+                .clickLogo();
+    }
+}

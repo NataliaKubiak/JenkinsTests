@@ -1,10 +1,12 @@
 package org.portfolio.tests;
 
 import org.portfolio.models.CreateNewItemErrorPage;
+import org.portfolio.models.CreateNewItemPage;
 import org.portfolio.models.CreateProjectLongNameErrorPage;
 import org.portfolio.models.MainPage;
 import org.portfolio.tests.base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
@@ -71,7 +73,7 @@ public class FreestyleProjectTest extends BaseTest {
         String warningMessageText = new MainPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName("Freestyle.")
-                .getWarningMessage();
+                .getWarningMessageWrongData();
 
         Assert.assertEquals(warningMessageText, "» A name cannot end with ‘.’",
                 "Warning message is not as expected");
@@ -105,7 +107,7 @@ public class FreestyleProjectTest extends BaseTest {
         String warningMessageText = new MainPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
-                .getWarningMessage();
+                .getWarningMessageWrongData();
 
         Assert.assertEquals(warningMessageText, "» A job already exists with the name ‘"
                 + PROJECT_NAME + "’", "Warning message is not as expected");
@@ -160,5 +162,38 @@ public class FreestyleProjectTest extends BaseTest {
         new CreateProjectLongNameErrorPage(getDriver())
                 .getHeader()
                 .clickLogo();
+    }
+
+    @Test
+    public void testCreateFreestyleProjectEmptyName() {
+        CreateNewItemPage createNewItemPage = new MainPage(getDriver())
+                .clickNewItemButton()
+                .clickFreestyleProjectButton();
+
+        Assert.assertFalse(createNewItemPage.isOkButtonActive(), "Ok button has incorrect state");
+        Assert.assertEquals(createNewItemPage.getWarningMessageEmptyInput(),
+                "» This field cannot be empty, please enter a valid name",
+                "Warning message is not as expected");
+    }
+
+    @DataProvider(name = "unsafeChar")
+    public Object[][] provideUnsafeChars() {
+        return new Object[][] {
+                {"!"}, {"@"}, {"#"}, {"$"}, {"%"},
+                {"^"}, {"&"}, {"*"}, {":"}, {";"},
+                {"/"}, {"|"}, {"?"}, {"<"}, {">"}
+        };
+    }
+    @Test(dataProvider = "unsafeChar")
+    public void testCreateFreestyleProjectUnsafeChar(String unsafeChar) {
+        CreateNewItemPage createNewItemPage = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName(unsafeChar)
+                .clickFreestyleProjectButton();
+
+        Assert.assertEquals(createNewItemPage.getWarningMessageWrongData(),
+                "» ‘" + unsafeChar + "’ is an unsafe character",
+                "Warning message is not as expected");
+        Assert.assertFalse(createNewItemPage.isOkButtonActive(),"Ok button has incorrect state");
     }
 }

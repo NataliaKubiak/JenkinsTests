@@ -3,9 +3,9 @@ package org.portfolio.models;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.portfolio.models.base.BaseMainHeaderPage;
+import org.portfolio.models.base.BaseMainHeaderFooterPage;
 
-public class CreateNewItemErrorPage extends BaseMainHeaderPage<CreateNewItemErrorPage> {
+public class CreateNewItemErrorPage extends BaseMainHeaderFooterPage<CreateNewItemErrorPage> {
 
     public CreateNewItemErrorPage(WebDriver driver) {
         super(driver);

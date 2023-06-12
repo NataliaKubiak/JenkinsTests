@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 //<Header> - any name (should be understandable)
 //<... extends BaseHeaderComponent> - limits so it's impossible to insert String or int
-public abstract class BasePage<Header extends BaseComponent<?>> extends BaseModel {
+public abstract class BasePage<HeaderFooter extends BaseComponent<?>> extends BaseModel {
 
     public BasePage(WebDriver driver) {
         super(driver);
@@ -15,5 +15,5 @@ public abstract class BasePage<Header extends BaseComponent<?>> extends BaseMode
 
     //return ANY Header from the BaseHeader inheritance line
     //no body coz we don't know which exactly header to create
-    public abstract Header getHeader();
+    public abstract HeaderFooter getHeaderFooter();
 }

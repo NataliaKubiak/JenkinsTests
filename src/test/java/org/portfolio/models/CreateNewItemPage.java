@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.portfolio.models.base.BaseMainHeaderPage;
+import org.portfolio.models.base.BaseMainHeaderFooterPage;
 
-public class CreateNewItemPage extends BaseMainHeaderPage<CreateNewItemPage> {
+public class CreateNewItemPage extends BaseMainHeaderFooterPage<CreateNewItemPage> {
 
     public CreateNewItemPage(WebDriver driver) {
         super(driver);

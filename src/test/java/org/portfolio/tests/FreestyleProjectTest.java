@@ -21,7 +21,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
                 .clickSaveWithDefaultSettings()
-                .getHeader()
+                .getHeaderFooter()
                 .clickLogo()
                 .itemIsDisplayedOnDashboard(PROJECT_NAME);
 
@@ -101,7 +101,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
                 .clickSaveWithDefaultSettings()
-                .getHeader()
+                .getHeaderFooter()
                 .clickLogo();
 
         String warningMessageText = new MainPage(getDriver())
@@ -124,7 +124,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
                 .clickSaveWithDefaultSettings()
-                .getHeader()
+                .getHeaderFooter()
                 .clickLogo();
 
         CreateNewItemErrorPage createNewItemErrorPage = new MainPage(getDriver())
@@ -139,7 +139,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         //post-condition
         new MainPage(getDriver())
-                .getHeader()
+                .getHeaderFooter()
                 .clickLogo()
                 .clickFreestyleProjectOnDashboard(PROJECT_NAME)
                 .deleteFreestyleProject();
@@ -160,7 +160,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         //post-condition
         new CreateProjectLongNameErrorPage(getDriver())
-                .getHeader()
+                .getHeaderFooter()
                 .clickLogo();
     }
 

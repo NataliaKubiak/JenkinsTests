@@ -3,9 +3,9 @@ package org.portfolio.models;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.portfolio.models.base.BaseMainHeaderPage;
+import org.portfolio.models.base.BaseMainHeaderFooterPage;
 
-public class ConfigFreestylePage extends BaseMainHeaderPage<ConfigFreestylePage> {
+public class ConfigFreestylePage extends BaseMainHeaderFooterPage<ConfigFreestylePage> {
 
     public ConfigFreestylePage(WebDriver driver) {
         super(driver);

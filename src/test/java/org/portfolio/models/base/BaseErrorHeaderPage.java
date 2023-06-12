@@ -10,7 +10,7 @@ public abstract class BaseErrorHeaderPage<Self extends BasePage<?>> extends Base
     }
 
     @Override
-    public ErrorHeaderComponent<Self> getHeader() {
+    public ErrorHeaderComponent<Self> getHeaderFooter() {
         return new ErrorHeaderComponent<>((Self) this);
     }
 }

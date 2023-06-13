@@ -11,7 +11,7 @@ public class CreateNewItemErrorPage extends BaseMainHeaderFooterPage<CreateNewIt
         super(driver);
     }
 
-    public String getTitle() {
+    public String getErrorPageTitle() {
         return getWait5().until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//h1"))).getText();
     }

@@ -60,7 +60,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .enterProjectName("   ")
                 .chooseFreestyleProjectAndOkToErrorPage();
 
-        Assert.assertEquals(createNewItemErrorPage.getTitle(), "Error",
+        Assert.assertEquals(createNewItemErrorPage.getErrorPageTitle(), "Error",
                 "The title of an Error is not as expected");
         Assert.assertEquals(createNewItemErrorPage.getErrorText(), "No name is specified",
                 "The error text is not as expected");
@@ -86,7 +86,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .enterProjectName("Freestyle.")
                 .chooseFreestyleProjectAndOkToErrorPage();
 
-        Assert.assertEquals(createNewItemErrorPage.getTitle(), "Error",
+        Assert.assertEquals(createNewItemErrorPage.getErrorPageTitle(), "Error",
                 "The title of an Error is not as expected");
         Assert.assertEquals(createNewItemErrorPage.getErrorText(), "A name cannot end with ‘.’",
                 "The error text is not as expected");
@@ -132,7 +132,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOkToErrorPage();
 
-        Assert.assertEquals(createNewItemErrorPage.getTitle(), "Error",
+        Assert.assertEquals(createNewItemErrorPage.getErrorPageTitle(), "Error",
                 "The title of an Error is not as expected");
         Assert.assertEquals(createNewItemErrorPage.getErrorText(), "A job already exists with the name ‘"
                 + PROJECT_NAME + "’", "The error text is not as expected");

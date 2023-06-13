@@ -27,7 +27,7 @@ public class HeaderFooterTest extends BaseTest {
                 .clickManageJenkinsButton()
                 .getHeaderFooter()
                 .clickLogo()
-                .getTitle();
+                .getMainPageTitle();
 
         Assert.assertEquals(mainPageTitle, "Welcome to Jenkins!",
                 "The dashboard page was not opened after clicking logo");
@@ -54,7 +54,7 @@ public class HeaderFooterTest extends BaseTest {
         String userHandbookPageTitle = new MainPage(getDriver())
                 .getHeaderFooter()
                 .clickQuestionMarkButtonInSearchBar()
-                .getTitle();
+                .getUserHandbookPageTitle();
 
         Assert.assertTrue(userHandbookPageTitle.contains("User Handbook"),
                 "User Handbook page isn't opened");
@@ -62,6 +62,34 @@ public class HeaderFooterTest extends BaseTest {
         //post-condition
         getDriver().navigate().back();
     }
+    @Test
+    public void testJenkinsVersion() {
+        String jenkinsVersion = new MainPage(getDriver())
+                .getHeaderFooter()
+                .getJenkinsVersionFromFooter();
 
+        Assert.assertEquals(jenkinsVersion, "Jenkins 2.387.2",
+                "Jenkins version in footer is not as expected");
+    }
 
+    @Test
+    public void testJenkinsVersionLinkRedirect() {
+        String officialWebsiteTitle = new MainPage(getDriver())
+                .getHeaderFooter()
+                .clickJenkinsVersionLinkAndRedirectToOffWebsite()
+                .getOfficialWebsiteTitle();
+
+        Assert.assertTrue(officialWebsiteTitle.contains("Jenkins"));
+    }
+
+    @Test
+    public void testRestApiLink() {
+        String restApiPageTitle = new MainPage(getDriver())
+                .getHeaderFooter()
+                .clickRestApiLinkFooter()
+                .getRestApiPageTitle();
+
+        Assert.assertEquals(restApiPageTitle, "REST API",
+                "REST API Link redirected to a wrong page");
+    }
 }

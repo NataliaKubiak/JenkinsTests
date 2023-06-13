@@ -18,7 +18,7 @@ public class MainPage extends BaseMainHeaderFooterPage<MainPage> {
         super(driver);
     }
 
-    public String getTitle() {
+    public String getMainPageTitle() {
         return getWait5().until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//h1"))).getText();
     }

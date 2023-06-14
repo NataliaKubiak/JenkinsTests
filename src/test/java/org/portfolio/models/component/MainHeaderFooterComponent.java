@@ -2,6 +2,7 @@ package org.portfolio.models.component;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.portfolio.models.*;
 import org.portfolio.models.base.BaseComponent;
@@ -10,8 +11,60 @@ import org.portfolio.models.base.BasePage;
 //this is a header realisation (where we will have action methods)
 public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseComponent<Page> {
 
+    private static final By NOTIFICATION_BUTTON = By.id("visible-am-button");
+    private static final By SECURITY_BUTTON = By.id("visible-sec-am-button");
+    private static final By USERS_BUTTON =  By.xpath("//a[@href='/user/admin']");
+    private static final By LOGOUT_BUTTON = By.xpath("//a[@href='/logout']");
+
     public MainHeaderFooterComponent(Page page) {
         super(page);
+    }
+
+    private String getBackgroundColor(By locator) {
+        return getDriver().findElement(locator).getCssValue("background-color");
+    }
+
+    private void hoverOver(By locator) {
+        new Actions(getDriver())
+                .moveToElement(getDriver().findElement(locator))
+                .pause(500)
+                .perform();
+    }
+
+    public String getNotificationButtonColor() {
+        return getBackgroundColor(NOTIFICATION_BUTTON);
+    }
+
+    public String getSecurityButtonColor() {
+        return getBackgroundColor(SECURITY_BUTTON);
+    }
+
+    public String getUsersButtonColor() {
+        return getBackgroundColor(USERS_BUTTON);
+    }
+
+    public String getLogoutButtonColor() {
+        return getBackgroundColor(LOGOUT_BUTTON);
+    }
+
+    public MainHeaderFooterComponent<Page> hoverOverNotificationButton() {
+        hoverOver(NOTIFICATION_BUTTON);
+        return this;
+    }
+
+    public MainHeaderFooterComponent<Page> hoverOverSecurityButton() {
+        hoverOver(SECURITY_BUTTON);
+        return this;
+    }
+
+    public MainHeaderFooterComponent<Page> hoverOverUsersButton() {
+        hoverOver(USERS_BUTTON);
+        return this;
+    }
+
+    public MainHeaderFooterComponent<Page> hoverOverLogoutButton() {
+        hoverOver(LOGOUT_BUTTON);
+        return this;
     }
 
     public MainPage clickLogo() {
@@ -42,8 +95,9 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         return new RestApiPage(getDriver());
     }
 
-    public JenkinsOfficialWebsitePage clickJenkinsVersionLinkAndRedirectToOffWebsite() {
-        getDriver().findElement(By.xpath("//a[@rel='noopener noreferrer']")).click();
-        return new JenkinsOfficialWebsitePage(getDriver());
-    }
+    //TODO rewrite with switching tabs methods
+//    public JenkinsOfficialWebsitePage clickJenkinsVersionLinkAndRedirectToOffWebsite() {
+//        getDriver().findElement(By.xpath("//a[@rel='noopener noreferrer']")).click();
+//        return new JenkinsOfficialWebsitePage(getDriver());
+//    }
 }

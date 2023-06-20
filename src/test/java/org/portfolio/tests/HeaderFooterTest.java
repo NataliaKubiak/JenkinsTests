@@ -64,6 +64,46 @@ public class HeaderFooterTest extends BaseTest {
     }
 
     @Test
+    public void testVerifyNotificationButtonColorChange() {
+        String notificationButtonColorBefore = new MainPage(getDriver())
+                .getHeaderFooter()
+                .getNotificationButtonColor();
+
+        String notificationButtonColorAfter = new MainPage(getDriver())
+                .getHeaderFooter()
+                .hoverOverNotificationButton()
+                .getNotificationButtonColor();
+
+        Assert.assertNotEquals(notificationButtonColorAfter, notificationButtonColorBefore,
+                "Notification Button color did not change.");
+    }
+
+    @Test
+    public void testVerifySecurityButtonColorChange() {
+        String securityButtonColorBefore = new MainPage(getDriver())
+                .getHeaderFooter()
+                .getSecurityButtonColor();
+
+        String securityButtonColorAfter = new MainPage(getDriver())
+                .getHeaderFooter()
+                .hoverOverSecurityButton()
+                .getSecurityButtonColor();
+
+        Assert.assertNotEquals(securityButtonColorAfter, securityButtonColorBefore,
+                "Security Button color did not change.");
+    }
+
+    @Test
+    public void testOpenUsersProfilePage() {
+        String usersPageTitle = new MainPage(getDriver())
+                .getHeaderFooter()
+                .clickUsersButton()
+                .getUsersPageTitle();
+
+        Assert.assertEquals(usersPageTitle, "admin");
+    }
+
+    @Test
     public void testVerifyUsersProfileButtonColorChange() {
         String usersProfileButtonColorBefore = new MainPage(getDriver())
                 .getHeaderFooter()

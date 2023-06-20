@@ -86,6 +86,11 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         return new UserHandbookPage(getDriver());
     }
 
+    public UsersPage clickUsersButton() {
+        getDriver().findElement(USERS_BUTTON).click();
+        return new UsersPage(getDriver());
+    }
+
     public String getJenkinsVersionFromFooter() {
         return getDriver().findElement(By.xpath("//a[@rel='noopener noreferrer']")).getText();
     }

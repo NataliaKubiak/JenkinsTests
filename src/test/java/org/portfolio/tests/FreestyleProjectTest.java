@@ -196,4 +196,14 @@ public class FreestyleProjectTest extends BaseTest {
                 "Warning message is not as expected");
         Assert.assertFalse(createNewItemPage.isOkButtonActive(),"Ok button has incorrect state");
     }
+
+    //TODO Finish the test with proper clickNewItemBreadcrumbs method
+//    @Test
+//    public void testCreateFreestyleProjectFromDropdownMenu() throws InterruptedException {
+//        CreateNewItemPage createNewItemPage = new MainPage(getDriver())
+//                .getHeaderFooter()
+//                .clickNewItemButtonBreadcrumbs();
+//
+//        Thread.sleep(2000);
+//    }
 }

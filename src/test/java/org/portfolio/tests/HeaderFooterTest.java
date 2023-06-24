@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 public class HeaderFooterTest extends BaseTest {
 
+    //header
     private final String PROJECT_NAME = "ProjectName12345";
 
     private void createProject() {
@@ -94,6 +95,37 @@ public class HeaderFooterTest extends BaseTest {
     }
 
     @Test
+    public void testIsNotificationPopupAppears() {
+        boolean isNotificationPopupAppears = new MainPage(getDriver())
+                .getHeaderFooter()
+                .clickNotificationButton()
+                .isNotificationPopupDisplayed();
+
+        Assert.assertTrue(isNotificationPopupAppears, "Notification Popup wasn't displayed");
+    }
+
+    @Test
+    public void testIsSecurityPopupAppears() {
+        boolean isSecurityPopupAppears = new MainPage(getDriver())
+                .getHeaderFooter()
+                .clickSecurityButton()
+                .isSecurityPopupDisplayed();
+
+        Assert.assertTrue(isSecurityPopupAppears, "Security Popup wasn't displayed");
+    }
+
+    @Test
+    public void testOpenManageJenkinsFromPopup() {
+        String manageJenkinsPageTitle = new MainPage(getDriver())
+                .getHeaderFooter()
+                .clickNotificationButtonAndManageJenkins()
+                .getManageJenkinsPageTitle();
+
+        Assert.assertEquals(manageJenkinsPageTitle, "Manage Jenkins",
+                "ManageJenkins Link in the Notification Popup didn't work");
+    }
+
+    @Test
     public void testOpenUsersProfilePage() {
         String usersPageTitle = new MainPage(getDriver())
                 .getHeaderFooter()
@@ -119,6 +151,19 @@ public class HeaderFooterTest extends BaseTest {
     }
 
     @Test
+    public void testBuildsPageOpenFromUsersDropdownMenu() {
+        String userName = "admin";
+
+        String buildsPageTitle = new MainPage(getDriver())
+                .getHeaderFooter()
+                .getUsersDropdownMenuAndClickBuilds()
+                .getBuildsPageTitle();
+
+        Assert.assertEquals(buildsPageTitle, "Builds for " + userName,
+                "Builds Page was not opened");
+    }
+
+    @Test
     public void testVerifyLogoutButtonColorChange() {
         String logoutButtonColorBefore = new MainPage(getDriver())
                 .getHeaderFooter()
@@ -133,6 +178,7 @@ public class HeaderFooterTest extends BaseTest {
                 "Logout Button color did not change.");
     }
 
+    //footer
     @Test
     public void testJenkinsVersion() {
         String jenkinsVersion = new MainPage(getDriver())

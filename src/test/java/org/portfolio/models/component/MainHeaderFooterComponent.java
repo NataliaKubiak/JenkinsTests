@@ -20,6 +20,7 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         super(page);
     }
 
+    //header
     private String getBackgroundColor(By locator) {
         return getDriver().findElement(locator).getCssValue("background-color");
     }
@@ -29,6 +30,18 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
                 .moveToElement(getDriver().findElement(locator))
                 .pause(500)
                 .perform();
+    }
+
+    //TODO Fix the locator on a line 37
+    private void clickUsersDropdownMenu() {
+        getDriver().findElement(By.xpath("//a[@href='/user/admin']/button[@class='jenkins-menu-dropdown-chevron']")).click();
+    }
+
+    public BuildsPage getUsersDropdownMenuAndClickBuilds() {
+        clickUsersDropdownMenu();
+        getWait5().until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//a[@href='/user/admin']/button[@class='jenkins-menu-dropdown-chevron']"))).click();
+        return new BuildsPage(getDriver());
     }
 
     public String getNotificationButtonColor() {
@@ -67,6 +80,33 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         return this;
     }
 
+    public MainHeaderFooterComponent<Page> clickNotificationButton() {
+        getDriver().findElement(NOTIFICATION_BUTTON).click();
+        return this;
+    }
+
+    public MainHeaderFooterComponent<Page> clickSecurityButton() {
+        getDriver().findElement(SECURITY_BUTTON).click();
+        return this;
+    }
+
+    public boolean isNotificationPopupDisplayed() {
+        return getWait5().until(ExpectedConditions
+                .visibilityOfElementLocated(By.id("visible-am-list"))).isDisplayed();
+    }
+
+    public boolean isSecurityPopupDisplayed() {
+        return getWait5().until(ExpectedConditions
+                .visibilityOfElementLocated(By.id("visible-sec-am-list"))).isDisplayed();
+    }
+
+    public ManageJenkinsPage clickNotificationButtonAndManageJenkins() {
+        clickNotificationButton();
+        getWait5().until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//div[@id='visible-am-list']//a[@href='/manage']"))).click();
+        return new ManageJenkinsPage(getDriver());
+    }
+
     public MainPage clickLogo() {
         getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.id("jenkins-home-link"))).click();
         return new MainPage(getDriver());
@@ -91,6 +131,22 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         return new UsersPage(getDriver());
     }
 
+    //TODO write proper XPath for NewItem Button in Dropdown Menu
+//    public CreateNewItemPage clickNewItemButtonBreadcrumbs() {
+//        new Actions(getDriver())
+//                .moveToElement(getDriver().findElement(By.xpath("//li[@class='jenkins-breadcrumbs__list-item']")))
+//                .pause(500)
+//                .moveToElement(getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//button[@class='jenkins-menu-dropdown-chevron']")))
+//                .click()
+//                .pause(500)
+//                .moveToElement(getDriver().findElement(By.xpath("//div[@id='breadcrumb-menu']//span[contains(text(), 'New Item')]")))
+//                .click()
+//                .perform();
+//
+//        return new CreateNewItemPage(getDriver());
+//    }
+
+    //footer
     public String getJenkinsVersionFromFooter() {
         return getDriver().findElement(By.xpath("//a[@rel='noopener noreferrer']")).getText();
     }

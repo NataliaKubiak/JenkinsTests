@@ -5,13 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.portfolio.models.base.BaseMainHeaderFooterPage;
 
-public class ManageJenkinsPage extends BaseMainHeaderFooterPage<ManageJenkinsPage> {
+public class BuildsPage extends BaseMainHeaderFooterPage<BuildsPage> {
 
-    public ManageJenkinsPage(WebDriver driver) {
+    public BuildsPage(WebDriver driver) {
         super(driver);
     }
 
-    public String getManageJenkinsPageTitle() {
+    public String getBuildsPageTitle() {
         return getWait5().until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//h1"))).getText();
     }

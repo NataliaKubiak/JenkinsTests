@@ -51,6 +51,20 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         return new UserConfigPage(getDriver());
     }
 
+    public MyViewsPage getUsersDropdownMenuAndClickMyViews() {
+        openUsersDropdownMenu();
+        getWait5().until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//div[@id='breadcrumb-menu']//span[contains(text(), 'My Views')]"))).click();
+        return new MyViewsPage(getDriver());
+    }
+
+    public CredentialsPage getUsersDropdownMenuAndClickCredentials() {
+        openUsersDropdownMenu();
+        getWait5().until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//div[@id='breadcrumb-menu']//span[contains(text(), 'Credentials')]"))).click();
+        return new CredentialsPage(getDriver());
+    }
+
     public String getNotificationButtonColor() {
         return getBackgroundColor(NOTIFICATION_BUTTON);
     }

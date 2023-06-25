@@ -175,6 +175,28 @@ public class HeaderFooterTest extends BaseTest {
     }
 
     @Test
+    public void testMyViewsPageOpenFromUsersDropdownMenu() {
+        String myViewsPageTitleFromBreadcrumbs = new MainPage(getDriver())
+                .getHeaderFooter()
+                .getUsersDropdownMenuAndClickMyViews()
+                .getMyViewsPageTitleFromBreadcrumbs();
+
+        Assert.assertEquals(myViewsPageTitleFromBreadcrumbs, "My Views",
+                "My Views Page was not opened");
+    }
+
+    @Test
+    public void testCredentialsPageOpenFromUsersDropdownMenu() {
+        String credentialsPageTitle = new MainPage(getDriver())
+                .getHeaderFooter()
+                .getUsersDropdownMenuAndClickCredentials()
+                .getCredentialsPageTitle();
+
+        Assert.assertEquals(credentialsPageTitle, "Credentials",
+                "Credentials Page was not opened");
+    }
+
+    @Test
     public void testVerifyLogoutButtonColorChange() {
         String logoutButtonColorBefore = new MainPage(getDriver())
                 .getHeaderFooter()

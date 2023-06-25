@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.portfolio.models.*;
 import org.portfolio.models.base.BaseComponent;
+import org.portfolio.models.base.BaseModel;
 import org.portfolio.models.base.BasePage;
 
 //this is a header realisation (where we will have action methods)
@@ -32,16 +33,22 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
                 .perform();
     }
 
-    //TODO Fix the locator on a line 37
-    private void clickUsersDropdownMenu() {
-        getDriver().findElement(By.xpath("//a[@href='/user/admin']/button[@class='jenkins-menu-dropdown-chevron']")).click();
+    private void openUsersDropdownMenu() {
+        BaseModel.clickByJSExecutor(this, getDriver().findElement(By.xpath("//a[@href='/user/admin']/button")));
     }
 
     public BuildsPage getUsersDropdownMenuAndClickBuilds() {
-        clickUsersDropdownMenu();
+        openUsersDropdownMenu();
         getWait5().until(ExpectedConditions
-                .elementToBeClickable(By.xpath("//a[@href='/user/admin']/button[@class='jenkins-menu-dropdown-chevron']"))).click();
+                .elementToBeClickable(By.xpath("//div[@id='breadcrumb-menu']//span[contains(text(), 'Builds')]"))).click();
         return new BuildsPage(getDriver());
+    }
+
+    public UserConfigPage getUsersDropdownMenuAndClickConfigure() {
+        openUsersDropdownMenu();
+        getWait5().until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//div[@id='breadcrumb-menu']//span[contains(text(), 'Configure')]"))).click();
+        return new UserConfigPage(getDriver());
     }
 
     public String getNotificationButtonColor() {

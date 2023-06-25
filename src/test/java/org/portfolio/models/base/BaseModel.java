@@ -1,6 +1,8 @@
 package org.portfolio.models.base;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -34,5 +36,10 @@ public abstract class BaseModel {
             wait10 = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         }
         return wait10;
+    }
+
+    public static void clickByJSExecutor(BaseModel baseModel, WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) baseModel.getDriver();
+        executor.executeScript("arguments[0].click();", element);
     }
 }

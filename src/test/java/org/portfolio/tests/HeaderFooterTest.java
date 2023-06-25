@@ -152,7 +152,7 @@ public class HeaderFooterTest extends BaseTest {
 
     @Test
     public void testBuildsPageOpenFromUsersDropdownMenu() {
-        String userName = "admin";
+        final String userName = "admin";
 
         String buildsPageTitle = new MainPage(getDriver())
                 .getHeaderFooter()
@@ -161,6 +161,17 @@ public class HeaderFooterTest extends BaseTest {
 
         Assert.assertEquals(buildsPageTitle, "Builds for " + userName,
                 "Builds Page was not opened");
+    }
+
+    @Test
+    public void testConfigPageOpenFromUsersDropdownMenu() {
+        String usersConfigPageTitleFromBreadcrumbs = new MainPage(getDriver())
+                .getHeaderFooter()
+                .getUsersDropdownMenuAndClickConfigure()
+                .getUserConfigPageTitleFromBreadcrumbs();
+
+        Assert.assertEquals(usersConfigPageTitleFromBreadcrumbs, "Configure",
+                "Configure Page was not opened");
     }
 
     @Test

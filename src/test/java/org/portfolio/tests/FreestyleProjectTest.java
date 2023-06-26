@@ -26,13 +26,13 @@ public class FreestyleProjectTest extends BaseTest {
                 .itemIsDisplayedOnDashboard(PROJECT_NAME);
 
         Assert.assertTrue(freestyleProjectIsPresent, "Freestyle Project with a name " + PROJECT_NAME
-                + " is not displayed on Dashboard");
+                + " was not created or displayed on Dashboard");
 
         //post-condition
         new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
     }
 
-    //won't be a problem with clearData
+    //TODO write clearData(). won't be a problem with clearData
 //    @Test
 //    public void testCreateFreestyleProjectWithAllowedChars() {
 //        final String allowedChar = "_-+=”{},";
@@ -197,13 +197,22 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertFalse(createNewItemPage.isOkButtonActive(),"Ok button has incorrect state");
     }
 
-    //TODO Finish the test with proper clickNewItemBreadcrumbs method
-//    @Test
-//    public void testCreateFreestyleProjectFromDropdownMenu() throws InterruptedException {
-//        CreateNewItemPage createNewItemPage = new MainPage(getDriver())
-//                .getHeaderFooter()
-//                .clickNewItemButtonBreadcrumbs();
-//
-//        Thread.sleep(2000);
-//    }
+    @Test
+    public void testCreateFreestyleProjectFromDropdownMenu() {
+        boolean freestyleProjectIsPresent = new MainPage(getDriver())
+                .getHeaderFooter()
+                .clickNewItemButtonBreadcrumbs()
+                .enterProjectName(PROJECT_NAME)
+                .chooseFreestyleProjectAndOK()
+                .clickSaveWithDefaultSettings()
+                .getHeaderFooter()
+                .clickLogo()
+                .itemIsDisplayedOnDashboard(PROJECT_NAME);
+
+        Assert.assertTrue(freestyleProjectIsPresent, "Freestyle Project with name " + PROJECT_NAME +
+                " was not created or displayed on a Dashboard");
+
+        //post-condition
+        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
+    }
 }

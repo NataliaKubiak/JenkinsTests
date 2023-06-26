@@ -152,20 +152,19 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         return new UsersPage(getDriver());
     }
 
-    //TODO write proper XPath for NewItem Button in Dropdown Menu
-//    public CreateNewItemPage clickNewItemButtonBreadcrumbs() {
-//        new Actions(getDriver())
-//                .moveToElement(getDriver().findElement(By.xpath("//li[@class='jenkins-breadcrumbs__list-item']")))
-//                .pause(500)
-//                .moveToElement(getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//button[@class='jenkins-menu-dropdown-chevron']")))
-//                .click()
-//                .pause(500)
-//                .moveToElement(getDriver().findElement(By.xpath("//div[@id='breadcrumb-menu']//span[contains(text(), 'New Item')]")))
-//                .click()
-//                .perform();
-//
-//        return new CreateNewItemPage(getDriver());
-//    }
+    public CreateNewItemPage clickNewItemButtonBreadcrumbs() {
+        new Actions(getDriver())
+                .moveToElement(getDriver().findElement(By.xpath("//li[@class='jenkins-breadcrumbs__list-item']")))
+                .pause(500)
+                .moveToElement(getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//button[@class='jenkins-menu-dropdown-chevron']")))
+                .click()
+                .pause(500)
+                .perform();
+
+        clickByJSExecutor(this, getDriver().findElement(By.xpath("//div[@id='breadcrumb-menu']//span[contains(text(), 'New Item')]")));
+
+        return new CreateNewItemPage(getDriver());
+    }
 
     //footer
     public String getJenkinsVersionFromFooter() {

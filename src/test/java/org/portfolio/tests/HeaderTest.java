@@ -5,9 +5,8 @@ import org.portfolio.tests.base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class HeaderFooterTest extends BaseTest {
+public class HeaderTest extends BaseTest {
 
-    //header
     private final String PROJECT_NAME = "ProjectName12345";
 
     private void createProject() {
@@ -209,38 +208,5 @@ public class HeaderFooterTest extends BaseTest {
 
         Assert.assertNotEquals(logoutButtonColorAfter, logoutButtonColorBefore,
                 "Logout Button color did not change.");
-    }
-
-    //footer
-    @Test
-    public void testJenkinsVersion() {
-        String jenkinsVersion = new MainPage(getDriver())
-                .getHeaderFooter()
-                .getJenkinsVersionFromFooter();
-
-        Assert.assertEquals(jenkinsVersion, "Jenkins 2.387.2",
-                "Jenkins version in footer is not as expected.");
-    }
-
-    //TODO rewrite this test so it will switch tab to the off website tab
-//    @Test
-//    public void testJenkinsVersionLinkRedirect() {
-//        String officialWebsiteTitle = new MainPage(getDriver())
-//                .getHeaderFooter()
-//                .clickJenkinsVersionLinkAndRedirectToOffWebsite()
-//                .getOfficialWebsiteTitle();
-//
-//        Assert.assertTrue(officialWebsiteTitle.contains("Jenkins"));
-//    }
-
-    @Test
-    public void testRestApiLink() {
-        String restApiPageTitle = new MainPage(getDriver())
-                .getHeaderFooter()
-                .clickRestApiLinkFooter()
-                .getRestApiPageTitle();
-
-        Assert.assertEquals(restApiPageTitle, "REST API",
-                "REST API Link redirected to a wrong page.");
     }
 }

@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-public class FreestyleProjectTest extends BaseTest {
+public class CreateFreestyleProjectTest extends BaseTest {
 
     private final String PROJECT_NAME = "Project12345";
 

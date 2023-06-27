@@ -176,9 +176,19 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         return new RestApiPage(getDriver());
     }
 
-    //TODO rewrite with switching tabs methods
-//    public JenkinsOfficialWebsitePage clickJenkinsVersionLinkAndRedirectToOffWebsite() {
-//        getDriver().findElement(By.xpath("//a[@rel='noopener noreferrer']")).click();
-//        return new JenkinsOfficialWebsitePage(getDriver());
-//    }
+    public JenkinsOfficialWebsitePage clickJenkinsVersionLinkAndRedirectToOffWebsite() {
+        String originalHandle = getDriver().getWindowHandle();
+        assert getDriver().getWindowHandles().size() == 1;
+
+        getDriver().findElement(By.xpath("//a[@rel='noopener noreferrer']")).click();
+        getWait5().until(ExpectedConditions.numberOfWindowsToBe(2));
+
+        for(String windowHandle : getDriver().getWindowHandles()) {
+            if(!originalHandle.contentEquals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+        return new JenkinsOfficialWebsitePage(getDriver());
+    }
 }

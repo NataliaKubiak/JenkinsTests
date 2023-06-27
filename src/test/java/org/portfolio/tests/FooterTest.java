@@ -17,16 +17,26 @@ public class FooterTest extends BaseTest {
                 "Jenkins version in footer is not as expected.");
     }
 
-    //TODO rewrite this test so it will switch tab to the off website tab
-//    @Test
-//    public void testJenkinsVersionLinkRedirect() {
-//        String officialWebsiteTitle = new MainPage(getDriver())
-//                .getHeaderFooter()
-//                .clickJenkinsVersionLinkAndRedirectToOffWebsite()
-//                .getOfficialWebsiteTitle();
-//
-//        Assert.assertTrue(officialWebsiteTitle.contains("Jenkins"));
-//    }
+    @Test
+    public void testJenkinsVersionLinkRedirect() {
+        String officialWebsiteTitle = new MainPage(getDriver())
+                .getHeaderFooter()
+                .clickJenkinsVersionLinkAndRedirectToOffWebsite()
+                .getOfficialWebsiteTitle();
+
+        Assert.assertTrue(officialWebsiteTitle.contains("Jenkins"));
+
+        //TODO remove it when I write clearData()
+        //post-condition
+        String originalHandle = getDriver().getWindowHandle();
+
+        for(String windowHandle : getDriver().getWindowHandles()) {
+            if (!originalHandle.contentEquals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+    }
 
     @Test
     public void testRestApiLink() {

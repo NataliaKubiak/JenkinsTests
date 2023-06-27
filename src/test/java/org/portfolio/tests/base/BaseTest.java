@@ -6,6 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public abstract class BaseTest {
 
     private WebDriver driver;
@@ -33,5 +36,10 @@ public abstract class BaseTest {
 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    public String getTimeStamp() {
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        return timeStamp;
     }
 }

@@ -39,7 +39,8 @@ public class MainPage extends BaseMainHeaderFooterPage<MainPage> {
     }
 
     public FreestyleProjectPage clickFreestyleProjectOnDashboard(String itemName) {
-        getDriver().findElement(By.xpath("//a[@href='job/"+ itemName + "/']")).click();
+        getWait5().until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//a[@href='job/" + itemName + "/']"))).click();
         return new FreestyleProjectPage(getDriver());
     }
 }

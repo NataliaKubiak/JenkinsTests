@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 public class CreateFreestyleProjectTest extends BaseTest {
 
-    private final String PROJECT_NAME = "Project12345";
+    private final String PROJECT_NAME = "Project" + getTimeStamp();
 
     @Test
     public void testCreateFreestyleProject() {
@@ -66,6 +66,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 "The error text is not as expected");
     }
 
+    //TODO fix the test and make it stable
     //sometimes Warning message appears, sometimes no. Weird
     @Ignore
     @Test
@@ -92,6 +93,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 "The error text is not as expected");
     }
 
+    //TODO fix the test and make it stable
     //sometimes Warning message appears, sometimes no
     @Ignore
     @Test
@@ -116,7 +118,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
         new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
     }
 
-    //add dependency from createFreestyleProject after adding clearData()
+    //TODO add dependency from createFreestyleProject after adding clearData()
     @Test
     public void testCreateFreestyleProjectDuplicateProjectName() {
         new MainPage(getDriver())

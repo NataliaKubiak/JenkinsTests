@@ -9,7 +9,7 @@ import org.portfolio.models.base.BaseComponent;
 import org.portfolio.models.base.BaseModel;
 import org.portfolio.models.base.BasePage;
 
-//this is a header realisation (where we will have action methods)
+//this is a header and footer realisation (where we will have action methods)
 public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseComponent<Page> {
 
     private static final By NOTIFICATION_BUTTON = By.id("visible-am-button");

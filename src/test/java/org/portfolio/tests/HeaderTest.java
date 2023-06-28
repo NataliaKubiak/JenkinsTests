@@ -100,7 +100,7 @@ public class HeaderTest extends BaseTest {
                 .clickNotificationButton()
                 .isNotificationPopupDisplayed();
 
-        Assert.assertTrue(isNotificationPopupAppears, "Notification Popup wasn't displayed");
+        Assert.assertTrue(isNotificationPopupAppears, "Notification Popup wasn't displayed.");
     }
 
     @Test
@@ -110,7 +110,7 @@ public class HeaderTest extends BaseTest {
                 .clickSecurityButton()
                 .isSecurityPopupDisplayed();
 
-        Assert.assertTrue(isSecurityPopupAppears, "Security Popup wasn't displayed");
+        Assert.assertTrue(isSecurityPopupAppears, "Security Popup wasn't displayed.");
     }
 
     @Test
@@ -121,7 +121,7 @@ public class HeaderTest extends BaseTest {
                 .getManageJenkinsPageTitle();
 
         Assert.assertEquals(manageJenkinsPageTitle, "Manage Jenkins",
-                "ManageJenkins Link in the Notification Popup didn't work");
+                "ManageJenkins Link in the Notification Popup didn't work.");
     }
 
     @Test
@@ -159,7 +159,7 @@ public class HeaderTest extends BaseTest {
                 .getBuildsPageTitle();
 
         Assert.assertEquals(buildsPageTitle, "Builds for " + userName,
-                "Builds Page was not opened");
+                "Builds Page was not opened.");
     }
 
     @Test
@@ -170,7 +170,7 @@ public class HeaderTest extends BaseTest {
                 .getUserConfigPageTitleFromBreadcrumbs();
 
         Assert.assertEquals(usersConfigPageTitleFromBreadcrumbs, "Configure",
-                "Configure Page was not opened");
+                "Configure Page was not opened.");
     }
 
     @Test
@@ -181,7 +181,7 @@ public class HeaderTest extends BaseTest {
                 .getMyViewsPageTitleFromBreadcrumbs();
 
         Assert.assertEquals(myViewsPageTitleFromBreadcrumbs, "My Views",
-                "My Views Page was not opened");
+                "My Views Page was not opened.");
     }
 
     @Test
@@ -192,7 +192,7 @@ public class HeaderTest extends BaseTest {
                 .getCredentialsPageTitle();
 
         Assert.assertEquals(credentialsPageTitle, "Credentials",
-                "Credentials Page was not opened");
+                "Credentials Page was not opened.");
     }
 
     @Test

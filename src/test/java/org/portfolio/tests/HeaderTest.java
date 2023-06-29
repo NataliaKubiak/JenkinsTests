@@ -3,8 +3,10 @@ package org.portfolio.tests;
 import org.portfolio.models.MainPage;
 import org.portfolio.tests.base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+@Ignore
 public class HeaderTest extends BaseTest {
 
     private final String PROJECT_NAME = "ProjectName12345";

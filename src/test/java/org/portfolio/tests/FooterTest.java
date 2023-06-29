@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class FooterTest extends BaseTest {
 
-    @Test
+    @Test(description = "Find the version of jenkins on the footer")
     public void testJenkinsVersion() {
         String jenkinsVersion = new MainPage(getDriver())
                 .getHeaderFooter()
@@ -17,7 +17,7 @@ public class FooterTest extends BaseTest {
                 "Jenkins version in footer is not as expected.");
     }
 
-    @Test
+    @Test(description = "Open jenkins website by clicking on the version")
     public void testJenkinsVersionLinkRedirect() {
         String officialWebsiteTitle = new MainPage(getDriver())
                 .getHeaderFooter()
@@ -38,7 +38,7 @@ public class FooterTest extends BaseTest {
         }
     }
 
-    @Test
+    @Test(description = "Open REST API page by clicking on the link")
     public void testRestApiLink() {
         String restApiPageTitle = new MainPage(getDriver())
                 .getHeaderFooter()

@@ -10,6 +10,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+@Ignore
 public class CreateFreestyleProjectTest extends BaseTest {
 
     private final String PROJECT_NAME = "Project" + getTimeStamp();

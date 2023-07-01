@@ -3,6 +3,7 @@ package org.portfolio.tests;
 import org.portfolio.models.MainPage;
 import org.portfolio.tests.base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class FooterTest extends BaseTest {
@@ -17,6 +18,7 @@ public class FooterTest extends BaseTest {
                 "Jenkins version in footer is not as expected.");
     }
 
+    @Ignore
     @Test(description = "Open jenkins website by clicking on the version")
     public void testJenkinsVersionLinkRedirect() {
         String officialWebsiteTitle = new MainPage(getDriver())

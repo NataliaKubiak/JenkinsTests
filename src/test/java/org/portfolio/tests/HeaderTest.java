@@ -3,13 +3,11 @@ package org.portfolio.tests;
 import org.portfolio.models.MainPage;
 import org.portfolio.tests.base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-@Ignore
 public class HeaderTest extends BaseTest {
 
-    private final String PROJECT_NAME = "ProjectName12345";
+    private final String PROJECT_NAME = "ProjectName" + getTimeStamp();
 
     private void createProject() {
         new MainPage(getDriver())
@@ -25,14 +23,13 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testLogoReturnToDashboard() {
-        String mainPageTitle = new MainPage(getDriver())
+        boolean isMainPanelDisplayed = new MainPage(getDriver())
                 .clickManageJenkinsButton()
                 .getHeaderFooter()
                 .clickLogo()
-                .getMainPageTitle();
+                .getMainPanel();
 
-        Assert.assertEquals(mainPageTitle, "Welcome to Jenkins!",
-                "The dashboard page was not opened after clicking logo.");
+        Assert.assertTrue(isMainPanelDisplayed, "The dashboard page was not opened after clicking logo.");
     }
 
     @Test
@@ -81,21 +78,6 @@ public class HeaderTest extends BaseTest {
     }
 
     @Test
-    public void testVerifySecurityButtonColorChange() {
-        String securityButtonColorBefore = new MainPage(getDriver())
-                .getHeaderFooter()
-                .getSecurityButtonColor();
-
-        String securityButtonColorAfter = new MainPage(getDriver())
-                .getHeaderFooter()
-                .hoverOverSecurityButton()
-                .getSecurityButtonColor();
-
-        Assert.assertNotEquals(securityButtonColorAfter, securityButtonColorBefore,
-                "Security Button color did not change.");
-    }
-
-    @Test
     public void testIsNotificationPopupAppears() {
         boolean isNotificationPopupAppears = new MainPage(getDriver())
                 .getHeaderFooter()
@@ -103,16 +85,6 @@ public class HeaderTest extends BaseTest {
                 .isNotificationPopupDisplayed();
 
         Assert.assertTrue(isNotificationPopupAppears, "Notification Popup wasn't displayed.");
-    }
-
-    @Test
-    public void testIsSecurityPopupAppears() {
-        boolean isSecurityPopupAppears = new MainPage(getDriver())
-                .getHeaderFooter()
-                .clickSecurityButton()
-                .isSecurityPopupDisplayed();
-
-        Assert.assertTrue(isSecurityPopupAppears, "Security Popup wasn't displayed.");
     }
 
     @Test

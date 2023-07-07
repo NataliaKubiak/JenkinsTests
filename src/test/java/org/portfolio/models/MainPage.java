@@ -18,9 +18,8 @@ public class MainPage extends BaseMainHeaderFooterPage<MainPage> {
         super(driver);
     }
 
-    public String getMainPageTitle() {
-        return getWait5().until(ExpectedConditions
-                .visibilityOfElementLocated(By.xpath("//h1"))).getText();
+    public boolean getMainPanel() {
+        return getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.id("main-panel"))).isDisplayed();
     }
 
     public CreateNewItemPage clickNewItemButton() {

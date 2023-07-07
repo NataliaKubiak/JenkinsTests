@@ -14,7 +14,7 @@ public class FooterTest extends BaseTest {
                 .getHeaderFooter()
                 .getJenkinsVersionFromFooter();
 
-        Assert.assertEquals(jenkinsVersion, "Jenkins 2.387.2",
+        Assert.assertEquals(jenkinsVersion, "Jenkins 2.401.2",
                 "Jenkins version in footer is not as expected.");
     }
 

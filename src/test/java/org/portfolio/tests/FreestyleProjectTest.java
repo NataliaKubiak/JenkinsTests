@@ -72,7 +72,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         String disableWarning = new FreestyleProjectPage(getDriver())
                 .clickDisableButton()
-                .getDisableWarning();
+                .getDisableWarningText();
 
         Assert.assertTrue(disableWarning.contains("This project is currently disabled"),
                 "Freestyle Project was not disabled or the Disable warning was not displayed.");

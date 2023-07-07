@@ -2,6 +2,8 @@ package org.portfolio.models;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.portfolio.models.base.BaseMainHeaderFooterPage;
 
@@ -14,21 +16,28 @@ import org.portfolio.models.base.BaseMainHeaderFooterPage;
 
 public class MainPage extends BaseMainHeaderFooterPage<MainPage> {
 
+    @FindBy(id = "main-panel")
+    private WebElement mainPanel;
+    @FindBy(xpath = "//a[@href='/view/all/newJob']")
+    private WebElement newItemButtonSideMenu;
+    @FindBy(xpath = "//a[@href='/manage']")
+    private WebElement manageJenkinsButtonSideMenu;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
 
     public boolean getMainPanel() {
-        return getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.id("main-panel"))).isDisplayed();
+        return getWait5().until(ExpectedConditions.visibilityOf(mainPanel)).isDisplayed();
     }
 
     public CreateNewItemPage clickNewItemButton() {
-        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
+        newItemButtonSideMenu.click();
         return new CreateNewItemPage(getDriver());
     }
 
     public ManageJenkinsPage clickManageJenkinsButton() {
-        getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/manage']"))).click();
+        getWait5().until(ExpectedConditions.elementToBeClickable(manageJenkinsButtonSideMenu)).click();
         return new ManageJenkinsPage(getDriver());
     }
 

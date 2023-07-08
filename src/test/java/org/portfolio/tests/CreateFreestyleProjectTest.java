@@ -32,26 +32,43 @@ public class CreateFreestyleProjectTest extends BaseTest {
         new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
     }
 
-    //TODO write clearData(). won't be a problem with clearData
-//    @Test
-//    public void testCreateFreestyleProjectWithAllowedChars() {
-//        final String allowedChar = "_-+=”{},";
-//
-//        boolean freestyleProjectIsPresent = new MainPage(getDriver())
-//                .clickNewItemButton()
-//                .enterTheNameOfTheProject(allowedChar)
-//                .chooseFreestyleProjectAndOK()
-//                .clickSaveWithDefaultSettings()
-//                .getHeader()
-//                .clickLogo()
-//                .itemIsDisplayedOnDashboard(allowedChar);
-//
-//        Assert.assertTrue(freestyleProjectIsPresent, "Freestyle Project with a name " + allowedChar
-//                + " is not displayed on Dashboard");
-//
-//        //post-condition
-//        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(allowedChar).deleteFreestyleProject();
-//    }
+    @DataProvider(name = "allowedChar")
+    public Object[][] provideAllowedChar() {
+        return new Object[][] {
+                {"_"}, {"-"}, {"+"},
+                {"="}, {"{"},
+                {"}"}, {","}
+        };
+    }
+
+    @Test(dataProvider = "allowedChar")
+    public void testCreateFreestyleProjectWithAllowedChars(String allowedChar) {
+
+        boolean freestyleProjectIsPresent = new MainPage(getDriver())
+                .clickNewItemButton()
+                .enterProjectName(allowedChar)
+                .chooseFreestyleProjectAndOK()
+                .clickSaveWithDefaultSettings()
+                .getHeaderFooter()
+                .clickLogo()
+                .itemIsDisplayedOnDashboard(allowedChar);
+
+        Assert.assertTrue(freestyleProjectIsPresent, "Freestyle Project with a name " + allowedChar
+                + " is not displayed on Dashboard");
+
+        //post-condition
+        switch (allowedChar) {
+            case "_", "-", "+", "=", ",":
+                new MainPage(getDriver()).clickFreestyleProjectOnDashboard(allowedChar).deleteFreestyleProject();
+                break;
+            case "{":
+                new MainPage(getDriver()).clickFreestyleProjectOnDashboard("%7B").deleteFreestyleProject();
+                break;
+            case "}":
+                new MainPage(getDriver()).clickFreestyleProjectOnDashboard("%7D").deleteFreestyleProject();
+                break;
+        }
+    }
 
     @Test
     public void testCreateFreestyleProjectSpacesInsteadOfName() {

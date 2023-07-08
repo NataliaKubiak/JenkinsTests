@@ -67,6 +67,6 @@ public class FreestyleProjectPage extends BaseMainHeaderFooterPage<FreestyleProj
     //for post-conditions (just deletion without verification)
     public void deleteFreestyleProject() {
         deleteButtonSideMenu.click();
-        getWait5().until(ExpectedConditions.alertIsPresent()).accept();
+        getWait10().until(ExpectedConditions.alertIsPresent()).accept();
     }
 }

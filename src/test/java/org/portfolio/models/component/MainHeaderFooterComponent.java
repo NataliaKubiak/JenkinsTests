@@ -136,9 +136,9 @@ public class MainHeaderFooterComponent<Page extends BasePage<?>> extends BaseCom
         return new ManageJenkinsPage(getDriver());
     }
 
-    public MainPage clickLogo() {
+    public DashboardPage clickLogo() {
         getWait5().until(ExpectedConditions.elementToBeClickable(jenkinsLogo)).click();
-        return new MainPage(getDriver());
+        return new DashboardPage(getDriver());
     }
 
     public FreestyleProjectPage typeInSearchBarAndEnter(String projectName) {

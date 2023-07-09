@@ -18,6 +18,8 @@ public class CreateNewItemPage extends BaseMainHeaderFooterPage<CreateNewItemPag
     private WebElement warningMessageWrongData;
     @FindBy(id = "itemname-required")
     private WebElement warningMessageEmptyInput;
+    @FindBy(xpath = "//label[@for='name']")
+    private WebElement newItemTitle;
 
     public CreateNewItemPage(WebDriver driver) {
         super(driver);
@@ -61,5 +63,10 @@ public class CreateNewItemPage extends BaseMainHeaderFooterPage<CreateNewItemPag
 
     public boolean isOkButtonActive() {
         return okButton.isEnabled();
+    }
+
+    public CreateNewItemPage clickToBlankSpace() {
+        newItemTitle.click();
+        return this;
     }
 }

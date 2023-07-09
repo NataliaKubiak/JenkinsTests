@@ -14,7 +14,9 @@ import org.portfolio.models.base.BaseMainHeaderFooterPage;
 
 //add <MainPage> so we can return MainPage from BaseMainHeaderPage getHeader()
 
-public class MainPage extends BaseMainHeaderFooterPage<MainPage> {
+//changed to DashboardPage matching TestDoc
+
+public class DashboardPage extends BaseMainHeaderFooterPage<DashboardPage> {
 
     @FindBy(id = "main-panel")
     private WebElement mainPanel;
@@ -23,7 +25,7 @@ public class MainPage extends BaseMainHeaderFooterPage<MainPage> {
     @FindBy(xpath = "//a[@href='/manage']")
     private WebElement manageJenkinsButtonSideMenu;
 
-    public MainPage(WebDriver driver) {
+    public DashboardPage(WebDriver driver) {
         super(driver);
     }
 

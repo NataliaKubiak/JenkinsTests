@@ -3,11 +3,10 @@ package org.portfolio.tests;
 import org.portfolio.models.CreateNewItemErrorPage;
 import org.portfolio.models.CreateNewItemPage;
 import org.portfolio.models.CreateProjectLongNameErrorPage;
-import org.portfolio.models.MainPage;
+import org.portfolio.models.DashboardPage;
 import org.portfolio.tests.base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class CreateFreestyleProjectTest extends BaseTest {
@@ -16,7 +15,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void testCreateProject() {
-        boolean freestyleProjectIsPresent = new MainPage(getDriver())
+        boolean freestyleProjectIsPresent = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
@@ -28,11 +27,12 @@ public class CreateFreestyleProjectTest extends BaseTest {
         Assert.assertTrue(freestyleProjectIsPresent, "Freestyle Project with a name " + PROJECT_NAME
                 + " was not created or displayed on Dashboard");
 
+
         //post-condition
-        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
+        new DashboardPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
     }
 
-    @DataProvider(name = "testCreateProjectWithAllowedChars")
+    @DataProvider(name = "allowedChar")
     public Object[][] provideAllowedChar() {
         return new Object[][] {
                 {"_"}, {"-"}, {"+"},
@@ -43,8 +43,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test(dataProvider = "allowedChar")
     public void testCreateProjectWithAllowedChars(String allowedChar) {
-
-        boolean freestyleProjectIsPresent = new MainPage(getDriver())
+        boolean freestyleProjectIsPresent = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(allowedChar)
                 .chooseFreestyleProjectAndOK()
@@ -59,20 +58,20 @@ public class CreateFreestyleProjectTest extends BaseTest {
         //post-condition
         switch (allowedChar) {
             case "_", "-", "+", "=", ",":
-                new MainPage(getDriver()).clickFreestyleProjectOnDashboard(allowedChar).deleteFreestyleProject();
+                new DashboardPage(getDriver()).clickFreestyleProjectOnDashboard(allowedChar).deleteFreestyleProject();
                 break;
             case "{":
-                new MainPage(getDriver()).clickFreestyleProjectOnDashboard("%7B").deleteFreestyleProject();
+                new DashboardPage(getDriver()).clickFreestyleProjectOnDashboard("%7B").deleteFreestyleProject();
                 break;
             case "}":
-                new MainPage(getDriver()).clickFreestyleProjectOnDashboard("%7D").deleteFreestyleProject();
+                new DashboardPage(getDriver()).clickFreestyleProjectOnDashboard("%7D").deleteFreestyleProject();
                 break;
         }
     }
 
     @Test
     public void testCreateProjectSpacesInsteadOfName() {
-        CreateNewItemErrorPage createNewItemErrorPage = new MainPage(getDriver())
+        CreateNewItemErrorPage createNewItemErrorPage = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName("   ")
                 .chooseFreestyleProjectAndOkToErrorPage();
@@ -83,26 +82,21 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 "The error text is not as expected");
     }
 
-    //TODO fix the test and make it stable
-    //sometimes Warning message appears, sometimes no. Weird
-    @Ignore
     @Test
     public void testProjectNameEndingWithDot() {
-        String warningMessageText = new MainPage(getDriver())
+        CreateNewItemPage createNewItemPage = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName("Freestyle.")
-                .getWarningMessageWrongData();
+                .clickToBlankSpace();
 
-        Assert.assertEquals(warningMessageText, "» A name cannot end with ‘.’",
+        Assert.assertEquals(createNewItemPage.getWarningMessageWrongData(), "» A name cannot end with ‘.’",
                 "Warning message is not as expected");
+        Assert.assertFalse(createNewItemPage.isOkButtonActive(), "Ok button has incorrect state");
     }
 
-    //TODO fix the test and make it stable
-    //sometimes Warning message appears, sometimes no
-    @Ignore
     @Test
     public void testVerifyWarningMessageDuplicateProjectName() {
-        new MainPage(getDriver())
+        new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
@@ -110,22 +104,22 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 .getHeaderFooter()
                 .clickLogo();
 
-        String warningMessageText = new MainPage(getDriver())
+        String warningMessageText = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
+                .clickToBlankSpace()
                 .getWarningMessageWrongData();
 
         Assert.assertEquals(warningMessageText, "» A job already exists with the name ‘"
                 + PROJECT_NAME + "’", "Warning message is not as expected");
 
-        //post-condition
-        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
+        //post-condition - doesn't work coz I finished not on a MainPage
+//        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
     }
 
-    //TODO add dependency from createFreestyleProject after adding clearData()
     @Test
     public void testCreateProjectDuplicateProjectName() {
-        new MainPage(getDriver())
+        new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
@@ -133,7 +127,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 .getHeaderFooter()
                 .clickLogo();
 
-        CreateNewItemErrorPage createNewItemErrorPage = new MainPage(getDriver())
+        CreateNewItemErrorPage createNewItemErrorPage = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOkToErrorPage();
@@ -144,7 +138,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 + PROJECT_NAME + "’", "The error text is not as expected");
 
         //post-condition
-        new MainPage(getDriver())
+        new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .clickLogo()
                 .clickFreestyleProjectOnDashboard(PROJECT_NAME)
@@ -155,7 +149,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     public void testCreateProjectLongName() {
         final String longName = "THIS STRING IS 257 CHARACTERS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxY";
 
-        String problemText = new MainPage(getDriver())
+        String problemText = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(longName)
                 .chooseFreestyleProjectAndOkToErrorLongNamePage()
@@ -172,7 +166,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void testCreateProjectEmptyName() {
-        CreateNewItemPage createNewItemPage = new MainPage(getDriver())
+        CreateNewItemPage createNewItemPage = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .clickFreestyleProjectButton();
 
@@ -182,7 +176,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 "Warning message is not as expected");
     }
 
-    @DataProvider(name = "testCreateProjectUnsafeChar")
+    @DataProvider(name = "unsafeChar")
     public Object[][] provideUnsafeChars() {
         return new Object[][] {
                 {"!"}, {"@"}, {"#"}, {"$"}, {"%"},
@@ -190,9 +184,10 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 {"/"}, {"|"}, {"?"}, {"<"}, {">"}
         };
     }
+
     @Test(dataProvider = "unsafeChar")
     public void testCreateProjectUnsafeChar(String unsafeChar) {
-        CreateNewItemPage createNewItemPage = new MainPage(getDriver())
+        CreateNewItemPage createNewItemPage = new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(unsafeChar)
                 .clickFreestyleProjectButton();
@@ -205,7 +200,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void testCreateProjectFromDropdownMenu() {
-        boolean freestyleProjectIsPresent = new MainPage(getDriver())
+        boolean freestyleProjectIsPresent = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .clickNewItemButtonBreadcrumbs()
                 .enterProjectName(PROJECT_NAME)
@@ -219,6 +214,6 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 " was not created or displayed on a Dashboard");
 
         //post-condition
-        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
+        new DashboardPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
     }
 }

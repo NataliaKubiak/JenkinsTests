@@ -1,7 +1,7 @@
 package org.portfolio.tests;
 
 import org.portfolio.models.FreestyleProjectPage;
-import org.portfolio.models.MainPage;
+import org.portfolio.models.DashboardPage;
 import org.portfolio.tests.base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -13,7 +13,7 @@ public class FreestyleProjectTest extends BaseTest {
     private final String DESCRIPTION = "This is a description " + getTimeStamp();
 
     private void createFreestyleProject() {
-        new MainPage(getDriver())
+        new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
@@ -23,7 +23,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     private void createFreestyleProjectWithDescription() {
-        new MainPage(getDriver())
+        new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
@@ -33,16 +33,16 @@ public class FreestyleProjectTest extends BaseTest {
 
     //post-condition
     @AfterMethod
-    private MainPage deleteFreestyleProject() {
+    private DashboardPage deleteFreestyleProject() {
         new FreestyleProjectPage(getDriver()).deleteFreestyleProject();
-        return new MainPage(getDriver());
+        return new DashboardPage(getDriver());
     }
 
     @Test
-    public void testOpenProjectFromDashboardVerifyNameAndDescription() {  //changed name. TODO Have to change test itself
+    public void testOpenProjectFromDashboard() {
         createFreestyleProject();
 
-        String freestyleProjectPageTitle = new MainPage(getDriver())
+        String freestyleProjectPageTitle = new DashboardPage(getDriver())
                 .clickFreestyleProjectOnDashboard(PROJECT_NAME)
                 .getProjectPageTitle();
 
@@ -51,7 +51,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testProjectNameAndDescriptionAreDisplayed() { //TODO add this verification to previous test
+    public void testProjectNameAndDescriptionAreDisplayed() {
         //pre-condition
         createFreestyleProjectWithDescription();
 

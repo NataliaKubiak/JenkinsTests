@@ -1,6 +1,6 @@
 package org.portfolio.tests;
 
-import org.portfolio.models.MainPage;
+import org.portfolio.models.DashboardPage;
 import org.portfolio.tests.base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,7 +10,7 @@ public class HeaderTest extends BaseTest {
     private final String PROJECT_NAME = "ProjectName" + getTimeStamp();
 
     private void createProject() {
-        new MainPage(getDriver())
+        new DashboardPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
                 .chooseFreestyleProjectAndOK()
@@ -18,12 +18,12 @@ public class HeaderTest extends BaseTest {
     }
 
     private void deleteProject() {
-        new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
+        new DashboardPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
     }
 
     @Test
     public void testLogoReturnToDashboard() {
-        boolean isMainPanelDisplayed = new MainPage(getDriver())
+        boolean isMainPanelDisplayed = new DashboardPage(getDriver())
                 .clickManageJenkinsButton()
                 .getHeaderFooter()
                 .clickLogo()
@@ -36,7 +36,7 @@ public class HeaderTest extends BaseTest {
     public void testSearchBarFindAndGoToProjectPage() {
         createProject();
 
-        String projectPageTitle = new MainPage(getDriver())
+        String projectPageTitle = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .typeInSearchBarAndEnter(PROJECT_NAME)
                 .getProjectPageTitle();
@@ -50,7 +50,7 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testSearchBarOpenHandbook() {
-        String userHandbookPageTitle = new MainPage(getDriver())
+        String userHandbookPageTitle = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .clickQuestionMarkButtonInSearchBar()
                 .getUserHandbookPageTitle();
@@ -64,11 +64,11 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testVerifyNotificationButtonColorChange() {
-        String notificationButtonColorBefore = new MainPage(getDriver())
+        String notificationButtonColorBefore = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .getNotificationButtonColor();
 
-        String notificationButtonColorAfter = new MainPage(getDriver())
+        String notificationButtonColorAfter = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .hoverOverNotificationButton()
                 .getNotificationButtonColor();
@@ -79,7 +79,7 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testIsNotificationPopupAppears() {
-        boolean isNotificationPopupAppears = new MainPage(getDriver())
+        boolean isNotificationPopupAppears = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .clickNotificationButton()
                 .isNotificationPopupDisplayed();
@@ -89,7 +89,7 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testOpenManageJenkinsFromPopup() {
-        String manageJenkinsPageTitle = new MainPage(getDriver())
+        String manageJenkinsPageTitle = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .clickNotificationButtonAndManageJenkins()
                 .getManageJenkinsPageTitle();
@@ -100,7 +100,7 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testOpenUsersProfilePage() {
-        String usersPageTitle = new MainPage(getDriver())
+        String usersPageTitle = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .clickUsersButton()
                 .getUsersPageTitle();
@@ -110,11 +110,11 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testVerifyUsersProfileButtonColorChange() {
-        String usersProfileButtonColorBefore = new MainPage(getDriver())
+        String usersProfileButtonColorBefore = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .getUsersButtonColor();
 
-        String usersProfileButtonColorAfter = new MainPage(getDriver())
+        String usersProfileButtonColorAfter = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .hoverOverUsersButton()
                 .getUsersButtonColor();
@@ -127,7 +127,7 @@ public class HeaderTest extends BaseTest {
     public void testBuildsPageOpenFromUsersDropdownMenu() {
         final String userName = "admin";
 
-        String buildsPageTitle = new MainPage(getDriver())
+        String buildsPageTitle = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .getUsersDropdownMenuAndClickBuilds()
                 .getBuildsPageTitle();
@@ -138,7 +138,7 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testConfigPageOpenFromUsersDropdownMenu() {
-        String usersConfigPageTitleFromBreadcrumbs = new MainPage(getDriver())
+        String usersConfigPageTitleFromBreadcrumbs = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .getUsersDropdownMenuAndClickConfigure()
                 .getUserConfigPageTitleFromBreadcrumbs();
@@ -149,7 +149,7 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testMyViewsPageOpenFromUsersDropdownMenu() {
-        String myViewsPageTitleFromBreadcrumbs = new MainPage(getDriver())
+        String myViewsPageTitleFromBreadcrumbs = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .getUsersDropdownMenuAndClickMyViews()
                 .getMyViewsPageTitleFromBreadcrumbs();
@@ -160,7 +160,7 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testCredentialsPageOpenFromUsersDropdownMenu() {
-        String credentialsPageTitle = new MainPage(getDriver())
+        String credentialsPageTitle = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .getUsersDropdownMenuAndClickCredentials()
                 .getCredentialsPageTitle();
@@ -171,11 +171,11 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testVerifyLogoutButtonColorChange() {
-        String logoutButtonColorBefore = new MainPage(getDriver())
+        String logoutButtonColorBefore = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .getLogoutButtonColor();
 
-        String logoutButtonColorAfter = new MainPage(getDriver())
+        String logoutButtonColorAfter = new DashboardPage(getDriver())
                 .getHeaderFooter()
                 .hoverOverLogoutButton()
                 .getLogoutButtonColor();

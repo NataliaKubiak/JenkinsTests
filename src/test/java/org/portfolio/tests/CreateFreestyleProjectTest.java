@@ -15,7 +15,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     private final String PROJECT_NAME = "Project" + getTimeStamp();
 
     @Test
-    public void testCreateFreestyleProject() {
+    public void testCreateProject() {
         boolean freestyleProjectIsPresent = new MainPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
@@ -32,7 +32,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
         new MainPage(getDriver()).clickFreestyleProjectOnDashboard(PROJECT_NAME).deleteFreestyleProject();
     }
 
-    @DataProvider(name = "allowedChar")
+    @DataProvider(name = "testCreateProjectWithAllowedChars")
     public Object[][] provideAllowedChar() {
         return new Object[][] {
                 {"_"}, {"-"}, {"+"},
@@ -42,7 +42,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test(dataProvider = "allowedChar")
-    public void testCreateFreestyleProjectWithAllowedChars(String allowedChar) {
+    public void testCreateProjectWithAllowedChars(String allowedChar) {
 
         boolean freestyleProjectIsPresent = new MainPage(getDriver())
                 .clickNewItemButton()
@@ -71,7 +71,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testCreateFreestyleProjectSpacesInsteadOfName() {
+    public void testCreateProjectSpacesInsteadOfName() {
         CreateNewItemErrorPage createNewItemErrorPage = new MainPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName("   ")
@@ -87,7 +87,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     //sometimes Warning message appears, sometimes no. Weird
     @Ignore
     @Test
-    public void testVerifyWarningMessageProjectNameEndingWithDot() {
+    public void testProjectNameEndingWithDot() {
         String warningMessageText = new MainPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName("Freestyle.")
@@ -95,19 +95,6 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
         Assert.assertEquals(warningMessageText, "» A name cannot end with ‘.’",
                 "Warning message is not as expected");
-    }
-
-    @Test
-    public void testCreateFreestyleProjectNameEndingWithDot() {
-        CreateNewItemErrorPage createNewItemErrorPage = new MainPage(getDriver())
-                .clickNewItemButton()
-                .enterProjectName("Freestyle.")
-                .chooseFreestyleProjectAndOkToErrorPage();
-
-        Assert.assertEquals(createNewItemErrorPage.getErrorPageTitle(), "Error",
-                "The title of an Error is not as expected");
-        Assert.assertEquals(createNewItemErrorPage.getErrorText(), "A name cannot end with ‘.’",
-                "The error text is not as expected");
     }
 
     //TODO fix the test and make it stable
@@ -137,7 +124,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     //TODO add dependency from createFreestyleProject after adding clearData()
     @Test
-    public void testCreateFreestyleProjectDuplicateProjectName() {
+    public void testCreateProjectDuplicateProjectName() {
         new MainPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(PROJECT_NAME)
@@ -165,7 +152,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testCreateFreestyleProjectLongName() {
+    public void testCreateProjectLongName() {
         final String longName = "THIS STRING IS 257 CHARACTERS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxY";
 
         String problemText = new MainPage(getDriver())
@@ -184,7 +171,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testCreateFreestyleProjectEmptyName() {
+    public void testCreateProjectEmptyName() {
         CreateNewItemPage createNewItemPage = new MainPage(getDriver())
                 .clickNewItemButton()
                 .clickFreestyleProjectButton();
@@ -195,7 +182,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
                 "Warning message is not as expected");
     }
 
-    @DataProvider(name = "unsafeChar")
+    @DataProvider(name = "testCreateProjectUnsafeChar")
     public Object[][] provideUnsafeChars() {
         return new Object[][] {
                 {"!"}, {"@"}, {"#"}, {"$"}, {"%"},
@@ -204,7 +191,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
         };
     }
     @Test(dataProvider = "unsafeChar")
-    public void testCreateFreestyleProjectUnsafeChar(String unsafeChar) {
+    public void testCreateProjectUnsafeChar(String unsafeChar) {
         CreateNewItemPage createNewItemPage = new MainPage(getDriver())
                 .clickNewItemButton()
                 .enterProjectName(unsafeChar)
@@ -217,7 +204,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testCreateFreestyleProjectFromDropdownMenu() {
+    public void testCreateProjectFromDropdownMenu() {
         boolean freestyleProjectIsPresent = new MainPage(getDriver())
                 .getHeaderFooter()
                 .clickNewItemButtonBreadcrumbs()

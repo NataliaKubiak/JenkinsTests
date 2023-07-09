@@ -33,13 +33,13 @@ public class FreestyleProjectTest extends BaseTest {
 
     //post-condition
     @AfterMethod
-    private FreestyleProjectPage deleteFreestyleProject() {
+    private MainPage deleteFreestyleProject() {
         new FreestyleProjectPage(getDriver()).deleteFreestyleProject();
-        return new FreestyleProjectPage(getDriver());
+        return new MainPage(getDriver());
     }
 
     @Test
-    public void testOpenFreestyleProjectFromDashboard() {
+    public void testOpenProjectFromDashboardVerifyNameAndDescription() {  //changed name. TODO Have to change test itself
         createFreestyleProject();
 
         String freestyleProjectPageTitle = new MainPage(getDriver())
@@ -51,7 +51,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testProjectNameAndDescriptionAreDisplayed() {
+    public void testProjectNameAndDescriptionAreDisplayed() { //TODO add this verification to previous test
         //pre-condition
         createFreestyleProjectWithDescription();
 
@@ -67,7 +67,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testDisableFreestyleProject() {
+    public void testDisableProject() {
         createFreestyleProjectWithDescription();
 
         String disableWarning = new FreestyleProjectPage(getDriver())
@@ -79,7 +79,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testEnableFreestyleProject() {
+    public void testEnableProject() {
         //pre-conditions
         createFreestyleProjectWithDescription();
         new FreestyleProjectPage(getDriver()).clickDisableButton();
